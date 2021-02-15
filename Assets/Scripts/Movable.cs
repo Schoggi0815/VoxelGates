@@ -4,18 +4,10 @@ using UnityEngine.EventSystems;
 
 public class Movable : GridObject
 { 
-    private static readonly List<Movable> AllMovables = new List<Movable>();
-
     private bool _isGettingMoved;
-    public bool CanBeMovedByPlayer { get; set; }
 
     private const float Snapper = 10;
 
-    private void Start()
-    {
-        AllMovables.Add(this);
-    }
-    
     private void Update()
     {
         if (!_isGettingMoved) return;
@@ -23,12 +15,17 @@ public class Movable : GridObject
         if (Input.GetMouseButton(2))
         {
             var cursorInWorldPos = Constants.CursorInWorldPos();
-            GridPosition = GridObject.WorldToGridPos(cursorInWorldPos);
+            GridPosition = GridPositionCalculation(WorldToGridPos(cursorInWorldPos));
         }
         else
         {
             _isGettingMoved = false;
         }
+    }
+
+    public virtual GridPosition GridPositionCalculation(GridPosition gridPosition)
+    {
+        return gridPosition;
     }
 
     private void OnMouseOver()

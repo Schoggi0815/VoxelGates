@@ -6,7 +6,6 @@ public class Constants : MonoBehaviour
 {
 	public static Constants C;
 	
-	public List<Knob> knobs = new List<Knob>();
 	public List<LineDrawer> lineDrawers = new List<LineDrawer>();
 
 	public Sprite knobSpriteOn;
@@ -16,15 +15,19 @@ public class Constants : MonoBehaviour
 	public GameObject inputKnobPrefab;
 	public GameObject outputKnobPrefab;
 	public GameObject linePrefab;
+	public GameObject lineCornerPrefab;
 	
 	public Vector2 knobSpawnOffset;
 
 	public Transform knobParent;
 	public Transform lineParent;
+	public Transform lineCornerParent;
 
 	public Color lineActiveColor;
 	public Color lineInactiveColor;
 	public Color lineHoverColor;
+
+	public GridObject selectionDrawer;
 
 	private void Awake()
 	{

@@ -6,7 +6,7 @@ namespace Line
 {
     public class Line : MonoBehaviour
     {
-        private static Vector2 _spriteSize = new Vector2(.1f, .3f);
+        private static readonly Vector2 _spriteSize = new Vector2(.1f, .3f);
 
         private SpriteRenderer _spriteRenderer;
         private BoxCollider2D _boxCollider2D;
@@ -14,8 +14,10 @@ namespace Line
         private GridPosition _gridPosition2;
         private bool _isActive;
 
-        private Knob _knobParent;
-        private Knob _knobChild;
+        private LineDrawer _lineParent;
+        private LineDrawer _lineChild;
+
+        public LineDirection lineDirection;
 
         public bool IsActive
         {
@@ -25,7 +27,10 @@ namespace Line
                 _isActive = value;
 
                 _spriteRenderer.color = value ? Constants.C.lineActiveColor : Constants.C.lineInactiveColor;
-                _knobChild.IsActive = value;
+                if (_lineChild != null)
+                {
+                    _lineChild.IsActive = value;
+                }
             }
         }
 
@@ -55,10 +60,14 @@ namespace Line
             _boxCollider2D = GetComponent<BoxCollider2D>();
         }
 
-        public void Delete()
+        public void Delete(bool cascadeDelete = true)
         {
-            _knobParent.Lines.Remove(this);
-            _knobChild.Lines.Remove(this);
+            _lineParent.lines.Remove(this);
+            if (cascadeDelete)
+            {
+                _lineChild.parentLine = null;
+                _lineChild.CascadeDelete();
+            }
             Destroy(gameObject);
         }
 
@@ -107,19 +116,26 @@ namespace Line
             }
         }
 
-        public static Line Create(GridPosition from, GridPosition to, bool isActive, Knob knobParent, Knob knobChild)
+        public void SetParents(LineDrawer lineParent, LineDrawer lineChild)
         {
-            var gameObject = Instantiate(Constants.C.linePrefab, Constants.C.knobParent, true);
+            _lineParent = lineParent;
+            _lineChild = lineChild;
+        }
+
+        public static Line Create(GridPosition from, GridPosition to, bool isActive, LineDrawer lineParent, LineDrawer lineChild, LineDirection lineDirection)
+        {
+            var gameObject = Instantiate(Constants.C.linePrefab, Constants.C.lineParent, true);
 
             var line = gameObject.GetComponent<Line>();
 
+            line.lineDirection = lineDirection;
             line._gridPosition1 = from;
             line._gridPosition2 = to;
             
             line.HandleLineChange();
             
-            line._knobParent = knobParent;
-            line._knobChild = knobChild;
+            line._lineParent = lineParent;
+            line._lineChild = lineChild;
 
             line.IsActive = isActive;
 

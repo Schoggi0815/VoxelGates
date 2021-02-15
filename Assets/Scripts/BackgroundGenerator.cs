@@ -33,7 +33,7 @@ public class BackgroundGenerator : MonoBehaviour
         _boxCollider.size = size;
         
         var transformPosition = mainCamera.transform.position;
-        transform.position = new Vector3(transformPosition.x - transformPosition.x % .9f + .05f, transformPosition.y - transformPosition.y % .9f + .05f, 1);
+        transform.position = new Vector3(transformPosition.x - transformPosition.x % .9f + .05f, transformPosition.y - transformPosition.y % .9f + .05f, 2);
         
         if (!_mouseIsOn) return;
 
