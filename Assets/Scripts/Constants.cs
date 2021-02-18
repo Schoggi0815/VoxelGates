@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Gates;
 using Line;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Constants : MonoBehaviour
 {
@@ -11,23 +15,34 @@ public class Constants : MonoBehaviour
 	public Sprite knobSpriteOn;
 	public Sprite knobSpriteOff;
 	public Sprite knobSpriteSelected;
+	
+	public Sprite smallKnobSpriteOn;
+	public Sprite smallKnobSpriteOff;
+	public Sprite smallKnobSpriteSelected;
 
 	public GameObject inputKnobPrefab;
 	public GameObject outputKnobPrefab;
 	public GameObject linePrefab;
 	public GameObject lineCornerPrefab;
+
+	public GameObject andGatePrefab;
+	public GameObject notGatePrefab;
 	
 	public Vector2 knobSpawnOffset;
+	public Vector2 gateSpawnOffset;
 
 	public Transform knobParent;
 	public Transform lineParent;
 	public Transform lineCornerParent;
+	public Transform gateParent;
 
 	public Color lineActiveColor;
 	public Color lineInactiveColor;
 	public Color lineHoverColor;
 
 	public GridObject selectionDrawer;
+	
+	private readonly List<Gate> _gatesToUpdate = new List<Gate>();
 
 	private void Awake()
 	{
@@ -45,8 +60,23 @@ public class Constants : MonoBehaviour
 		return new Vector3(screenToWorldPoint.x, screenToWorldPoint.y);
 	}
 
-	public GameObject SpawnPrefab(GameObject prefab)
+	private void FixedUpdate()
 	{
-		return Instantiate(prefab);
+		if (_gatesToUpdate.Count > 0)
+		{
+			var first = _gatesToUpdate.First();
+
+			_gatesToUpdate.RemoveAt(0);
+			
+			first.HandleChange();
+		}
+	}
+
+	public void AddGateToQueue(Gate gate)
+	{
+		if (!_gatesToUpdate.Contains(gate))
+		{
+			_gatesToUpdate.Add(gate);
+		}
 	}
 }

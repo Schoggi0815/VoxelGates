@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class GridObject : MonoBehaviour
 {
-	private GridPosition _gridPosition = new GridPosition();
+	private GridPosition _gridPosition;
+
+	public Vector3 offset;
 
 	public GridPosition GridPosition
 	{
@@ -10,10 +13,19 @@ public class GridObject : MonoBehaviour
 		set
 		{
 			_gridPosition = value;
-			transform.position = GridToWorldPos(_gridPosition);
+			transform.position = GridToWorldPos(_gridPosition) + offset;
 		}
 	}
 
+	private void Start()
+	{
+		_gridPosition = WorldToGridPos(transform.position);
+		
+		StartAddon();
+	}
+
+	protected virtual void StartAddon() { }
+	
 	public static Vector3 GridToWorldPos(GridPosition gridPosition)
 	{
 		return new Vector3((float)gridPosition.X / 10, (float)gridPosition.Y / 10);

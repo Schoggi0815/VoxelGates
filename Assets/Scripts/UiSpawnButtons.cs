@@ -11,7 +11,7 @@ public class UiSpawnButtons : MonoBehaviour
     {
         Spawn(Constants.C.inputKnobPrefab, Constants.C.knobSpawnOffset, Constants.C.knobParent);
     }
-    
+
     private void Spawn(GameObject prefab, Vector2 offset, Transform parent)
     {
         var screenToWorldPoint = Camera.main.ScreenToWorldPoint(transform.position);

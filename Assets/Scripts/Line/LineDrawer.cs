@@ -26,6 +26,8 @@ namespace Line
 				_isActive = value;
 
 				SetSpriteColor();
+				
+				ChangeActive();
 
 				foreach (var line in lines)
 				{
@@ -33,6 +35,8 @@ namespace Line
 				}
 			}
 		}
+
+		protected virtual void ChangeActive() { }
 
 		public bool IsSelected
 		{
@@ -45,11 +49,15 @@ namespace Line
 			}
 		}
 
+		private void Awake()
+		{
+			GridObject = GetComponent<GridObject>();
+			StartAddon();
+		}
+
 		private void Start()
 		{
 			Constants.C.lineDrawers.Add(this);
-			GridObject = GetComponent<Movable>();
-			StartAddon();
 		}
 
 		protected virtual void StartAddon()
@@ -153,6 +161,11 @@ namespace Line
 
 					var line = first.lines.Last();
 
+					if (parentLine != null)
+					{
+						parentLine.Delete();
+					}
+					
 					IsActive = first.IsActive;
 					parentLine = line;
 					line.SetParents(first, this);
@@ -199,7 +212,7 @@ namespace Line
 			if (lineDrawerMode == LineDrawerMode.Adaptive)
 			{
 				int count = lines.Count;
-				
+
 				for (int i = 0; i < count; i++)
 				{
 					lines.First().Delete();

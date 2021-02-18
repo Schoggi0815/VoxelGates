@@ -35,9 +35,4 @@ public class Movable : GridObject
             _isGettingMoved = true;
         }
     }
-
-    private static Vector3 GridToWorldPos(Vector2 gridPos)
-    {
-        return gridPos / Snapper;
-    }
 }

@@ -18,6 +18,18 @@ namespace Line
         private LineDrawer _lineChild;
 
         public LineDirection lineDirection;
+        private bool _isCursorOver;
+
+        private bool IsCursorOver
+        {
+            get => _isCursorOver;
+            set
+            {
+                _isCursorOver = value;
+                
+                SetColor();
+            }
+        }
 
         public bool IsActive
         {
@@ -27,11 +39,18 @@ namespace Line
                 _isActive = value;
 
                 _spriteRenderer.color = value ? Constants.C.lineActiveColor : Constants.C.lineInactiveColor;
-                if (_lineChild != null)
+                if (_lineChild != null && _lineChild != _lineParent)
                 {
                     _lineChild.IsActive = value;
                 }
+                
+                SetColor();
             }
+        }
+
+        private void SetColor()
+        {
+            _spriteRenderer.color = IsCursorOver ? Constants.C.lineHoverColor : IsActive ? Constants.C.lineActiveColor : Constants.C.lineInactiveColor;
         }
 
         public GridPosition GridPosition1
@@ -73,12 +92,12 @@ namespace Line
 
         private void OnMouseEnter()
         {
-            _spriteRenderer.color = Constants.C.lineHoverColor;
+            IsCursorOver = true;
         }
 
         private void OnMouseExit()
         {
-            _spriteRenderer.color = IsActive ? Constants.C.lineActiveColor : Constants.C.lineInactiveColor;
+            IsCursorOver = false;
         }
 
         private void OnMouseDown()

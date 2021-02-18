@@ -15,7 +15,7 @@ public class Knob : LineDrawer
 
 	protected override void OnMouseOverAddon()
 	{
-		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && lineDrawerMode != LineDrawerMode.Input)
+		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && lineDrawerMode != LineDrawerMode.Input && !Constants.C.lineDrawers.Any(x => x.IsSelected))
 		{
 			IsActive = !IsActive;
 		}

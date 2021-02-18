@@ -8,7 +8,7 @@ namespace Line
 	{
 		private LineDrawer _lineDrawer;
 
-		private void Awake()
+		protected override void StartAddon()
 		{
 			_lineDrawer = GetComponent<LineDrawer>();
 		}
