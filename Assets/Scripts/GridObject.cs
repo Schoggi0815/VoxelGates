@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security;
 using UnityEngine;
 
 public class GridObject : MonoBehaviour
@@ -7,13 +8,19 @@ public class GridObject : MonoBehaviour
 
 	public Vector3 offset;
 
+	[SerializeField]
+	private bool updatePosition = true;
+
 	public GridPosition GridPosition
 	{
 		get => _gridPosition;
 		set
 		{
 			_gridPosition = value;
-			transform.position = GridToWorldPos(_gridPosition) + offset;
+			if (updatePosition)
+			{
+				transform.position = GridToWorldPos(_gridPosition) + offset;
+			}
 		}
 	}
 

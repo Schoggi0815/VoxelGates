@@ -28,12 +28,13 @@ public class BackgroundGenerator : MonoBehaviour
     private void Update()
     {
         var size = _spriteSize / _cameraSizeStart * mainCamera.orthographicSize;
-        size = new Vector2(size.x - size.x % 1.8f, size.y - size.y % 1.8f);
+        var spriteLength = 8.6f;
+        size = new Vector2(size.x - size.x % spriteLength + spriteLength, size.y - size.y % spriteLength + spriteLength);
         _spriteRenderer.size = size;
         _boxCollider.size = size;
         
         var transformPosition = mainCamera.transform.position;
-        transform.position = new Vector3(transformPosition.x - transformPosition.x % .9f + .05f, transformPosition.y - transformPosition.y % .9f + .05f, 2);
+        transform.position = new Vector3(transformPosition.x - transformPosition.x % 4.3f + .05f, transformPosition.y - transformPosition.y % 4.3f + .05f, 2);
         
         if (!_mouseIsOn) return;
 

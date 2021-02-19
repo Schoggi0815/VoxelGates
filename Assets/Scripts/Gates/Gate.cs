@@ -45,6 +45,7 @@ namespace Gates
 				var inputKnob = inputKnobs[i];
 				inputKnob.OffsetFromGate = new GridPosition(_width / -2 - 1, i * -6);
 				inputKnob.SetPosition(gridObject.GridPosition);
+				inputKnob.transform.position = GridObject.GridToWorldPos(inputKnob.GridObject.GridPosition);
 			}
 
 			for (var i = 0; i < outputKnobs.Count; i++)
@@ -52,6 +53,7 @@ namespace Gates
 				var outputKnob = outputKnobs[i];
 				outputKnob.OffsetFromGate = new GridPosition(_width / 2 + 1, i * 6);
 				outputKnob.SetPosition(gridObject.GridPosition);
+				outputKnob.transform.position = GridObject.GridToWorldPos(outputKnob.GridObject.GridPosition);
 			}
 		}
 

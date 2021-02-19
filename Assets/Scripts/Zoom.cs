@@ -18,7 +18,7 @@ public class Zoom : MonoBehaviour
 	{
 		_size -= Input.mouseScrollDelta.y * sensitivity * _camera.orthographicSize;
 
-		var clamp = Mathf.Clamp(_size, 3, 10);
+		var clamp = Mathf.Clamp(_size, 5, 30);
 		_camera.orthographicSize = clamp;
 		_size = clamp;
 	}

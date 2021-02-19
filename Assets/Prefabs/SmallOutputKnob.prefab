@@ -101,6 +101,7 @@ MonoBehaviour:
   lines: []
   lineDrawerMode: 1
   updateSpriteColor: 0
+  gate: {fileID: 0}
 --- !u!114 &1171436094102754506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,6 +114,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a60302cd93444327927e3d29f3d0b6d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
+  updatePosition: 0
 --- !u!61 &6776548693411755513
 BoxCollider2D:
   m_ObjectHideFlags: 0
