@@ -31,9 +31,9 @@ namespace SaveObjects
 			};
 
 			var instantiate = Object.Instantiate(prefab, Constants.C.lineCornerParent, true);
-			instantiate.GetComponent<GridObject>().GridPosition = gridPosition;
 			var lineDrawer = instantiate.GetComponent<LineDrawer>();
 
+			lineDrawer.GridPosition = gridPosition;
 			lineDrawer.IsActive = isActive;
 
 			createdLineDrawer = lineDrawer;
@@ -52,6 +52,8 @@ namespace SaveObjects
 		{
 			lineDrawer.IsActive = isActive;
 			createdLineDrawer = lineDrawer;
+
+			lineDrawer.GridPosition = gridPosition;
 		}
 	}
 }

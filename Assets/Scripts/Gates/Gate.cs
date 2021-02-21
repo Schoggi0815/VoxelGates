@@ -37,7 +37,7 @@ namespace Gates
 		private void SetKnobPositions()
 		{
 			var maxKnobLength = Math.Max(inputKnobs.Count, outputKnobs.Count);
-			
+
 			for (var i = 0; i < inputKnobs.Count; i++)
 			{
 				var inputKnob = inputKnobs[i];

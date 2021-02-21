@@ -49,13 +49,6 @@ namespace Line
 			}
 		}
 
-		protected override void Awake()
-		{
-			base.Awake();
-			
-			StartAddon();
-		}
-
 		protected override void Start()
 		{
 			base.Start();
@@ -67,10 +60,6 @@ namespace Line
 		{
 			lineDrawerSave = new LineDrawerSave(GridPosition, lineDrawerMode, IsActive);
 			return lineDrawerSave;
-		}
-
-		protected virtual void StartAddon()
-		{
 		}
 
 		private bool _isFirstFrame;
@@ -118,7 +107,7 @@ namespace Line
 
 		private GridPosition GetSnappingPos(out LineDirection lineDirection)
 		{
-			var worldToGridPos = GridObject.WorldToGridPos(Constants.CursorInWorldPos());
+			var worldToGridPos = WorldToGridPos(Constants.CursorInWorldPos());
 
 			var distanceX = Math.Abs(worldToGridPos.X - GridPosition.X);
 			var distanceY = Math.Abs(worldToGridPos.Y - GridPosition.Y);

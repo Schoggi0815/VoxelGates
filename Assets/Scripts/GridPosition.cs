@@ -11,4 +11,8 @@ public struct GridPosition
 	
 	public readonly int X;
 	public readonly int Y;
+	public override string ToString()
+	{
+		return $"{X}, {Y}";
+	}
 }

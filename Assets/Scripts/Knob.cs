@@ -13,8 +13,10 @@ public class Knob : LineDrawer
 
 	public int ID { get; set; }
 
-	protected override void StartAddon()
+	protected override void Awake()
 	{
+		base.Awake();
+		
 		_spriteRenderer = GetComponent<SpriteRenderer>();
 
 		if (lineDrawerMode == LineDrawerMode.Output)

@@ -41,7 +41,7 @@ public class GeneralBasics2d : MonoBehaviour {
 		go.transform.position = pos;
 
 		if(hasParticles){
-			var particles = (GameObject)GameObject.Instantiate(prefabParticles, Vector3.zero, prefabParticles.transform.rotation );
+			var particles = (GameObject)Instantiate(prefabParticles, Vector3.zero, prefabParticles.transform.rotation );
 			particles.transform.parent = go.transform;
 			particles.transform.localPosition = prefabParticles.transform.position;
 		}

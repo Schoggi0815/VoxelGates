@@ -20,8 +20,10 @@ namespace Gates
 			GridPosition = new GridPosition(newPosition.X + OffsetFromGate.X, newPosition.Y + OffsetFromGate.Y);
 		}
 
-		protected override void StartAddon()
+		protected override void Awake()
 		{
+			base.Awake();
+			
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 		}
 

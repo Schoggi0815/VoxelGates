@@ -33,7 +33,7 @@ public class GridObject : MonoBehaviour
 
 	protected virtual void Start()
 	{
-		_gridPosition = WorldToGridPos(transform.localPosition);
+		_gridPosition = WorldToGridPos(transform.position);
 
 		if (createSave)
 		{
