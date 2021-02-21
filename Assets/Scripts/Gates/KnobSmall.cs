@@ -1,7 +1,6 @@
-﻿using System.Linq;
-using Line;
+﻿using Line;
+using SaveObjects;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace Gates
 {
@@ -14,9 +13,11 @@ namespace Gates
 		[HideInInspector]
 		public Gate gate;
 
+		public int id;
+
 		public void SetPosition(GridPosition newPosition)
 		{
-			GridObject.GridPosition = new GridPosition(newPosition.X + OffsetFromGate.X, newPosition.Y + OffsetFromGate.Y);
+			GridPosition = new GridPosition(newPosition.X + OffsetFromGate.X, newPosition.Y + OffsetFromGate.Y);
 		}
 
 		protected override void StartAddon()
@@ -31,7 +32,7 @@ namespace Gates
 
 		protected override void ChangeActive()
 		{
-			if (lineDrawerMode == LineDrawerMode.Input)
+			if (lineDrawerMode == LineDrawerMode.Input && gate != null)
 			{
 				Constants.C.AddGateToQueue(gate);
 			}

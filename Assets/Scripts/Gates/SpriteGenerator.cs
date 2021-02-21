@@ -12,11 +12,11 @@ namespace Gates
 
         private static Texture2D CreateTexture(int width, int height)
         {
-            Texture2D texture2D = new Texture2D(width, height, TextureFormat.ARGB32, false) {filterMode = FilterMode.Point};
+            var texture2D = new Texture2D(width, height, TextureFormat.ARGB32, false) {filterMode = FilterMode.Point};
 
-            for (int i = 0; i < width; i++)
+            for (var i = 0; i < width; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (var j = 0; j < height; j++)
                 {
                     texture2D.SetPixel(i, j, GetColor(i, j, width, height));
                 }

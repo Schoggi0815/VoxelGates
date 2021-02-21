@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1454869538212787477
 CanvasRenderer:
@@ -89,7 +89,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1454869538444208511}
   - component: {fileID: 1454869538444208510}
-  - component: {fileID: 1454869538444208505}
   m_Layer: 0
   m_Name: GateSprite
   m_TagString: Untagged
@@ -162,28 +161,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1454869538444208505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1454869538444208508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9846369923354862987d3d6bc01e932f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputKnobs:
-  - {fileID: 1454869538834531993}
-  - {fileID: 6264176179339230502}
-  outputKnobs:
-  - {fileID: 2082303180127594894}
-  gateName: And
-  text: {fileID: 1454869538212787482}
-  boxCollider2D: {fileID: 1454869538796186579}
-  color: {r: 0.8490566, g: 0.38047346, b: 0.38047346, a: 1}
-  gridObject: {fileID: 1454869538796186576}
 --- !u!1 &1454869538796186582
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,9 +171,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1454869538796186577}
   - component: {fileID: 1454869538796186579}
-  - component: {fileID: 1454869538796186576}
+  - component: {fileID: 4337100330906161576}
   m_Layer: 0
-  m_Name: Gate
+  m_Name: AndGate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,7 +222,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1454869538796186576
+--- !u!114 &4337100330906161576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -254,11 +231,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1454869538796186582}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b8427ca37f442d8ac3981e567d7221, type: 3}
+  m_Script: {fileID: 11500000, guid: 9846369923354862987d3d6bc01e932f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
-  gate: {fileID: 1454869538444208505}
+  updatePosition: 1
+  spriteRenderer: {fileID: 1454869538444208510}
+  inputKnobs:
+  - {fileID: 1454869538834531993}
+  - {fileID: 6264176179339230502}
+  outputKnobs:
+  - {fileID: 2082303180127594894}
+  gateName: And
+  text: {fileID: 1454869538212787482}
+  color: {r: 0.8490566, g: 0.38047346, b: 0.38047346, a: 1}
+  andGateSave:
+    inputKnobTop:
+      lineDrawerMode: 0
+      isActive: 0
+      createdLineDrawer: {fileID: 0}
+    inputKnobBottom:
+      lineDrawerMode: 0
+      isActive: 0
+      createdLineDrawer: {fileID: 0}
+    outputKnob:
+      lineDrawerMode: 0
+      isActive: 0
+      createdLineDrawer: {fileID: 0}
 --- !u!1 &1454869539360535416
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +295,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1454869539360535413
 Canvas:
@@ -386,9 +385,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2082303180127594898}
   - {fileID: 1454869538834531999}
   - {fileID: 6264176179339230496}
+  - {fileID: 2082303180127594898}
   m_Father: {fileID: 1454869538796186577}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -403,9 +402,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: SmallOutputKnob
       objectReference: {fileID: 0}
+    - target: {fileID: 1171436094102754509, guid: 02226699720701e4d84176e75e73062d, type: 3}
+      propertyPath: id
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1171436094102754513, guid: 02226699720701e4d84176e75e73062d, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1171436094102754513, guid: 02226699720701e4d84176e75e73062d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -472,9 +475,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454869539926579511}
     m_Modifications:
+    - target: {fileID: 4818410872656395122, guid: ac2a868c28c0bad499eb9a250673c965, type: 3}
+      propertyPath: id
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4818410872656395124, guid: ac2a868c28c0bad499eb9a250673c965, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4818410872656395124, guid: ac2a868c28c0bad499eb9a250673c965, type: 3}
       propertyPath: m_LocalPosition.x
@@ -545,9 +552,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1454869539926579511}
     m_Modifications:
+    - target: {fileID: 4818410872656395122, guid: ac2a868c28c0bad499eb9a250673c965, type: 3}
+      propertyPath: id
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4818410872656395124, guid: ac2a868c28c0bad499eb9a250673c965, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4818410872656395124, guid: ac2a868c28c0bad499eb9a250673c965, type: 3}
       propertyPath: m_LocalPosition.x

@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3780354476588514984
 CanvasRenderer:
@@ -89,7 +89,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3780354476824126146}
   - component: {fileID: 3780354476824126147}
-  - component: {fileID: 3780354476824126148}
   m_Layer: 0
   m_Name: GateSprite
   m_TagString: Untagged
@@ -162,27 +161,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3780354476824126148
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3780354476824126145}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d199a52a615846ffbebf54a97fab2e09, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputKnobs:
-  - {fileID: 8550342788129969247}
-  outputKnobs:
-  - {fileID: 2609627856760491654}
-  gateName: Not
-  text: {fileID: 3780354476588514983}
-  boxCollider2D: {fileID: 3780354477086974062}
-  color: {r: 0.22574759, g: 0.5887562, b: 0.8396226, a: 1}
-  gridObject: {fileID: 3780354477086974061}
 --- !u!1 &3780354477086974059
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,9 +171,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3780354477086974060}
   - component: {fileID: 3780354477086974062}
-  - component: {fileID: 3780354477086974061}
+  - component: {fileID: 2498078767864835524}
   m_Layer: 0
-  m_Name: Gate
+  m_Name: NotGate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -244,7 +222,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &3780354477086974061
+--- !u!114 &2498078767864835524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,11 +231,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 3780354477086974059}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b8427ca37f442d8ac3981e567d7221, type: 3}
+  m_Script: {fileID: 11500000, guid: d199a52a615846ffbebf54a97fab2e09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 0}
-  gate: {fileID: 3780354476824126148}
+  updatePosition: 1
+  spriteRenderer: {fileID: 3780354476824126147}
+  inputKnobs:
+  - {fileID: 8550342788129969247}
+  outputKnobs:
+  - {fileID: 2609627856760491654}
+  gateName: Not
+  text: {fileID: 3780354476588514983}
+  color: {r: 0.22574759, g: 0.5887562, b: 0.8396226, a: 1}
+  notGateSave:
+    inputKnob:
+      lineDrawerMode: 0
+      isActive: 0
+      createdLineDrawer: {fileID: 0}
+    outputKnob:
+      lineDrawerMode: 0
+      isActive: 0
+      createdLineDrawer: {fileID: 0}
 --- !u!1 &3780354477789739205
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,7 +290,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &3780354477789739208
 Canvas:
@@ -473,6 +468,10 @@ PrefabInstance:
     - target: {fileID: 1171436094102754508, guid: 02226699720701e4d84176e75e73062d, type: 3}
       propertyPath: m_Name
       value: SmallOutputKnob
+      objectReference: {fileID: 0}
+    - target: {fileID: 1171436094102754509, guid: 02226699720701e4d84176e75e73062d, type: 3}
+      propertyPath: id
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1171436094102754513, guid: 02226699720701e4d84176e75e73062d, type: 3}
       propertyPath: m_RootOrder

@@ -1,16 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Gates;
 using Line;
+using SaveObjects;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Constants : MonoBehaviour
 {
 	public static Constants C;
-	
+
+	public SaveHandler saveHandler;
+
 	public List<LineDrawer> lineDrawers = new List<LineDrawer>();
+	
+	public List<Knob> outputKnobs = new List<Knob>();
+	public List<Knob> inputKnobs = new List<Knob>();
 
 	public Sprite knobSpriteOn;
 	public Sprite knobSpriteOff;
@@ -77,6 +81,29 @@ public class Constants : MonoBehaviour
 		if (!_gatesToUpdate.Contains(gate))
 		{
 			_gatesToUpdate.Add(gate);
+		}
+	}
+
+	public bool TryRemoveFromQueue(Gate gate)
+	{
+		if (!_gatesToUpdate.Contains(gate)) return false;
+		
+		_gatesToUpdate.Remove(gate);
+		return true;
+	}
+
+	public void UpdateKnobIDs()
+	{
+		for (var i = 0; i < outputKnobs.Count; i++)
+		{
+			outputKnobs[i].ID = i + 1;
+			outputKnobs[i].OnUpdateID();
+		}
+		
+		for (var i = 0; i < inputKnobs.Count; i++)
+		{
+			inputKnobs[i].ID = i + 1;
+			inputKnobs[i].OnUpdateID();
 		}
 	}
 }

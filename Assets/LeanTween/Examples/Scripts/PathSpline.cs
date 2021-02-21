@@ -1,6 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using DentedPixel;
 
 public class ExampleSpline : MonoBehaviour {
 
@@ -17,7 +15,7 @@ public class ExampleSpline : MonoBehaviour {
 
 		LeanTween.moveSpline( ltLogo2, spline.pts, 1f).setEase(LeanTweenType.easeInOutQuad).setLoopPingPong().setOrientToPath(true);
 
-		LTDescr zoomInPath_LT = LeanTween.moveSpline(ltLogo2, new Vector3[]{Vector3.zero, Vector3.zero, new Vector3(1,1,1), new Vector3(2,1,1), new Vector3(2,1,1)}, 1.5f);
+		var zoomInPath_LT = LeanTween.moveSpline(ltLogo2, new Vector3[]{Vector3.zero, Vector3.zero, new Vector3(1,1,1), new Vector3(2,1,1), new Vector3(2,1,1)}, 1.5f);
 		zoomInPath_LT.setUseEstimatedTime(true);
 	}
 	

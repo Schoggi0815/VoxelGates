@@ -1,19 +1,19 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor;
+using SaveObjects;
 using UnityEngine;
 
 namespace Line
 {
-	public class LineDrawer : MonoBehaviour
+	public class LineDrawer : Movable
 	{
-		public GridObject GridObject { get; set; }
+		[HideInInspector] public LineDrawerSave lineDrawerSave;
 
 		[HideInInspector] public Line parentLine;
 		[HideInInspector] public List<Line> lines = new List<Line>();
 		private bool _isSelected;
-		[SerializeField] protected LineDrawerMode lineDrawerMode;
+		public LineDrawerMode lineDrawerMode;
 
 		[SerializeField] private bool updateSpriteColor;
 
@@ -49,15 +49,24 @@ namespace Line
 			}
 		}
 
-		private void Awake()
+		protected override void Awake()
 		{
-			GridObject = GetComponent<GridObject>();
+			base.Awake();
+			
 			StartAddon();
 		}
 
-		private void Start()
+		protected override void Start()
 		{
+			base.Start();
+			
 			Constants.C.lineDrawers.Add(this);
+		}
+
+		public override GridObjectSave ToSaveObject()
+		{
+			lineDrawerSave = new LineDrawerSave(GridPosition, lineDrawerMode, IsActive);
+			return lineDrawerSave;
 		}
 
 		protected virtual void StartAddon()
@@ -67,15 +76,17 @@ namespace Line
 		private bool _isFirstFrame;
 		private bool _isActive;
 
-		private void Update()
+		protected override void Update()
 		{
+			base.Update();
+			
 			if (IsSelected)
 			{
 				var gridPosition = GetSnappingPos(out var lineDirection);
 				Constants.C.selectionDrawer.GridPosition = gridPosition;
 				Constants.C.selectionDrawer.transform.position += new Vector3(0, 0, .5f);
 				var line = lines.Last();
-				line.GridPosition1 = GridObject.GridPosition;
+				line.GridPosition1 = GridPosition;
 				line.GridPosition2 = gridPosition;
 
 				line.lineDirection = lineDirection;
@@ -91,7 +102,7 @@ namespace Line
 					line.SetParents(this, lineDrawer);
 					lineDrawer.IsSelected = true;
 					Constants.C.selectionDrawer.GetComponent<SpriteRenderer>().color = lineDrawer.IsActive ? Constants.C.lineActiveColor : Constants.C.lineInactiveColor;
-					lineDrawer.lines.Add(Line.Create(GridObject.GridPosition, GridObject.GridPosition, IsActive, lineDrawer, lineDrawer, LineDirection.Horizontal));
+					lineDrawer.lines.Add(Line.Create(GridPosition, GridPosition, IsActive, lineDrawer, lineDrawer, LineDirection.Horizontal));
 				}
 
 				if (Input.GetMouseButtonDown(1) && !_isFirstFrame)
@@ -109,17 +120,17 @@ namespace Line
 		{
 			var worldToGridPos = GridObject.WorldToGridPos(Constants.CursorInWorldPos());
 
-			var distanceX = Math.Abs(worldToGridPos.X - GridObject.GridPosition.X);
-			var distanceY = Math.Abs(worldToGridPos.Y - GridObject.GridPosition.Y);
+			var distanceX = Math.Abs(worldToGridPos.X - GridPosition.X);
+			var distanceY = Math.Abs(worldToGridPos.Y - GridPosition.Y);
 
 			if (distanceY < distanceX)
 			{
-				worldToGridPos = new GridPosition(worldToGridPos.X, GridObject.GridPosition.Y);
+				worldToGridPos = new GridPosition(worldToGridPos.X, GridPosition.Y);
 				lineDirection = LineDirection.Vertical;
 			}
 			else
 			{
-				worldToGridPos = new GridPosition(GridObject.GridPosition.X, worldToGridPos.Y);
+				worldToGridPos = new GridPosition(GridPosition.X, worldToGridPos.Y);
 				lineDirection = LineDirection.Horizontal;
 			}
 
@@ -139,8 +150,10 @@ namespace Line
 			}
 		}
 
-		private void OnMouseOver()
+		protected override void OnMouseOver()
 		{
+			base.OnMouseOver();
+			
 			if (lineDrawerMode != LineDrawerMode.Input && Input.GetMouseButtonDown(1) && !Constants.C.lineDrawers.Any(x => x.IsSelected))
 			{
 				_isFirstFrame = true;
@@ -148,14 +161,14 @@ namespace Line
 				Constants.C.selectionDrawer.gameObject.SetActive(true);
 				Constants.C.selectionDrawer.GetComponent<SpriteRenderer>().color = IsActive ? Constants.C.lineActiveColor : Constants.C.lineInactiveColor;
 
-				lines.Add(Line.Create(GridObject.GridPosition, GridObject.GridPosition, IsActive, this, this, LineDirection.Horizontal));
+				lines.Add(Line.Create(GridPosition, GridPosition, IsActive, this, this, LineDirection.Horizontal));
 			}
 
 			if (Input.GetMouseButtonDown(0) && lineDrawerMode == LineDrawerMode.Input && !IsSelected && Constants.C.lineDrawers.Any(x => x.IsSelected))
 			{
 				var first = Constants.C.lineDrawers.First(x => x.IsSelected);
 
-				if (first.GridObject.GridPosition.X == GridObject.GridPosition.X || first.GridObject.GridPosition.Y == GridObject.GridPosition.Y)
+				if (first.GridPosition.X == GridPosition.X || first.GridPosition.Y == GridPosition.Y)
 				{
 					first.IsSelected = false;
 
@@ -211,15 +224,7 @@ namespace Line
 		{
 			if (lineDrawerMode == LineDrawerMode.Adaptive)
 			{
-				int count = lines.Count;
-
-				for (int i = 0; i < count; i++)
-				{
-					lines.First().Delete();
-				}
-
-				Constants.C.lineDrawers.Remove(this);
-				Destroy(gameObject);
+				Delete();
 			}
 			else
 			{
@@ -229,6 +234,85 @@ namespace Line
 
 		protected virtual void SpriteColorUpdate()
 		{
+		}
+
+		public override void Delete()
+		{
+			base.Delete();
+			
+			if (parentLine != null)
+			{
+				parentLine.Delete(false);
+			}
+
+			int count = lines.Count;
+			
+			for (var i = 0; i < count; i++)
+			{
+				lines.First().Delete();
+			}
+
+			Constants.C.lineDrawers.Remove(this);
+
+			if (GetType() == typeof(Knob))
+			{
+				var knob = (Knob) this;
+				
+				knob.OnDelete();
+			}
+			
+			Destroy(gameObject);
+		}
+
+		public override GridPosition GridPositionCalculation(GridPosition gridPosition)
+		{
+			var newGridPosition = gridPosition;
+
+			var hasBothDirections = false;
+			var hasSetFirst = false;
+			var lineDirection = LineDirection.Horizontal;
+
+			var lineDrawerLines = new List<Line>(lines);
+			
+			if (parentLine != null)
+			{
+				lineDrawerLines.Add(parentLine);
+			}
+			
+			foreach (var drawerLine in lineDrawerLines)
+			{
+				if (!hasSetFirst)
+				{
+					hasSetFirst = true;
+					lineDirection = drawerLine.lineDirection;
+					continue;
+				}
+
+				if (drawerLine.lineDirection != lineDirection)
+				{
+					hasBothDirections = true;
+					break;
+				}
+			}
+
+			if (!hasSetFirst)
+			{
+				OnMove(newGridPosition);
+				return newGridPosition;
+			}
+			
+			if (hasBothDirections)
+			{
+				newGridPosition = GridPosition;
+				OnMove(newGridPosition);
+				return newGridPosition;
+			}
+
+			newGridPosition = lineDirection == LineDirection.Horizontal ? new GridPosition(GridPosition.X, newGridPosition.Y) : new GridPosition(newGridPosition.X, GridPosition.Y);
+			
+			
+			OnMove(newGridPosition);
+			return newGridPosition;
 		}
 	}
 }

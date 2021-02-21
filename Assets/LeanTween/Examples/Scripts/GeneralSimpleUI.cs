@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using DentedPixel;
 
 public class GeneralSimpleUI : MonoBehaviour {
 	#if !UNITY_3_5 && !UNITY_4_0 && !UNITY_4_0_1 && !UNITY_4_1 && !UNITY_4_2 && !UNITY_4_3 && !UNITY_4_5
@@ -35,7 +33,7 @@ public class GeneralSimpleUI : MonoBehaviour {
 
 		LeanTween.value(gameObject, Color.red, Color.green, 1f ).setOnUpdate( 
 			(Color val)=>{
-				UnityEngine.UI.Image image = (UnityEngine.UI.Image)button.gameObject.GetComponent( typeof(UnityEngine.UI.Image) );
+				var image = (UnityEngine.UI.Image)button.gameObject.GetComponent( typeof(UnityEngine.UI.Image) );
 				image.color = val;
 			}
 		);

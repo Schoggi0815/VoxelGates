@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 1547917031606002894}
   - component: {fileID: 1547917031606002880}
   - component: {fileID: 1547917031606002881}
-  - component: {fileID: 7821270941836874258}
   m_Layer: 0
   m_Name: LineCorner
   m_TagString: Untagged
@@ -123,19 +122,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4ed46544cafb2c4d835a6382dceef23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0, z: 0}
+  updatePosition: 1
+  createSave: 1
+  lineDrawerSave:
+    lineDrawerMode: 0
+    isActive: 0
+    createdLineDrawer: {fileID: 0}
   parentLine: {fileID: 0}
   lines: []
   lineDrawerMode: 2
   updateSpriteColor: 1
---- !u!114 &7821270941836874258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1547917031606002892}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff37fdef233348aca405e6c435c45244, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

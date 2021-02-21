@@ -1,4 +1,7 @@
-﻿public struct GridPosition
+﻿using System;
+
+[Serializable]
+public struct GridPosition
 {
 	public GridPosition(int x, int y)
 	{

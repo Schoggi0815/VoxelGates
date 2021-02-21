@@ -1,12 +1,12 @@
 using System;
-using System.Collections.Generic;
+using SaveObjects;
 using UnityEngine;
 
 namespace Line
 {
     public class Line : MonoBehaviour
     {
-        private static readonly Vector2 _spriteSize = new Vector2(.1f, .3f);
+        private static readonly Vector2 SpriteSize = new Vector2(.1f, .3f);
 
         private SpriteRenderer _spriteRenderer;
         private BoxCollider2D _boxCollider2D;
@@ -79,8 +79,19 @@ namespace Line
             _boxCollider2D = GetComponent<BoxCollider2D>();
         }
 
+        private void Start()
+        {
+            Constants.C.saveHandler.lines.Add(this);
+        }
+
+        public LineSave ToLineSave()
+        {
+            return new LineSave(lineDirection, _lineParent.lineDrawerSave, _lineChild.lineDrawerSave);
+        }
+
         public void Delete(bool cascadeDelete = true)
         {
+            Constants.C.saveHandler.lines.Remove(this);
             _lineParent.lines.Remove(this);
             if (cascadeDelete)
             {
@@ -113,7 +124,7 @@ namespace Line
 
                 var distance = Mathf.Abs(_gridPosition1.Y - _gridPosition2.Y);
                 
-                var size = new Vector2(distance, 1) * _spriteSize;
+                var size = new Vector2(distance, 1) * SpriteSize;
                 
                 _spriteRenderer.size = size;
                 _boxCollider2D.size = size;
@@ -126,7 +137,7 @@ namespace Line
                 
                 var distance = Mathf.Abs(_gridPosition1.X - _gridPosition2.X);
 
-                var size = new Vector2(distance, 1) * _spriteSize;
+                var size = new Vector2(distance, 1) * SpriteSize;
                 
                 _spriteRenderer.size = size;
                 _boxCollider2D.size = size;

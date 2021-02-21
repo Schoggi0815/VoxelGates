@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Security;
+using SaveObjects;
 using UnityEngine;
 
 public class GridObject : MonoBehaviour
 {
 	private GridPosition _gridPosition;
+	
+	[SerializeField] private bool createSave = true;
 
 	public Vector3 offset;
 
@@ -24,15 +26,32 @@ public class GridObject : MonoBehaviour
 		}
 	}
 
-	private void Start()
+	public virtual void Delete()
 	{
-		_gridPosition = WorldToGridPos(transform.position);
-		
-		StartAddon();
+		Constants.C.saveHandler.gridObjects.Remove(this);
 	}
 
-	protected virtual void StartAddon() { }
-	
+	protected virtual void Start()
+	{
+		_gridPosition = WorldToGridPos(transform.localPosition);
+
+		if (createSave)
+		{
+			Constants.C.saveHandler.gridObjects.Add(this);
+		}
+	}
+
+	protected virtual void Awake() { }
+
+	protected virtual void Update() { }
+
+	protected virtual void OnMouseOver() { }
+
+	public virtual GridObjectSave ToSaveObject()
+	{
+		return null;
+	}
+
 	public static Vector3 GridToWorldPos(GridPosition gridPosition)
 	{
 		return new Vector3((float)gridPosition.X / 10, (float)gridPosition.Y / 10);

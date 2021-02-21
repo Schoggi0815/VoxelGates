@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -6,11 +5,19 @@ public class Movable : GridObject
 { 
     private bool _isGettingMoved;
 
-    private const float Snapper = 10;
+    public bool canBeMoved = true;
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
+        
         if (!_isGettingMoved) return;
+        
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            Delete();
+            Destroy(gameObject);
+        }
 
         if (Input.GetMouseButton(2))
         {
@@ -28,9 +35,11 @@ public class Movable : GridObject
         return gridPosition;
     }
 
-    private void OnMouseOver()
+    protected override void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(2) && !EventSystem.current.IsPointerOverGameObject())
+        base.OnMouseOver();
+        
+        if (Input.GetMouseButtonDown(2) && !EventSystem.current.IsPointerOverGameObject() && canBeMoved)
         {
             _isGettingMoved = true;
         }
