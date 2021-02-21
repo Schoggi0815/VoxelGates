@@ -292,9 +292,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ac2faa2df9156d4e8e0d0f188f41708, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  createSave: 1
   offset: {x: 0, y: 0, z: 0}
   updatePosition: 1
-  createSave: 1
+  canBeMoved: 1
   lineDrawerSave:
     lineDrawerMode: 0
     isActive: 0
