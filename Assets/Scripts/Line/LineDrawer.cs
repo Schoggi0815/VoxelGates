@@ -80,7 +80,7 @@ namespace Line
 
 				line.lineDirection = lineDirection;
 
-				if (Input.GetMouseButtonDown(0))
+				if (Input.GetMouseButtonDown(0) && !_isFirstFrame)
 				{
 					IsSelected = false;
 					var instantiate = Instantiate(Constants.C.lineCornerPrefab, Constants.C.lineCornerParent, true);
@@ -143,7 +143,7 @@ namespace Line
 		{
 			base.OnMouseOver();
 			
-			if (lineDrawerMode != LineDrawerMode.Input && Input.GetMouseButtonDown(1) && !Constants.C.lineDrawers.Any(x => x.IsSelected))
+			if (lineDrawerMode != LineDrawerMode.Input && Input.GetMouseButtonDown(0) && !Constants.C.lineDrawers.Any(x => x.IsSelected))
 			{
 				_isFirstFrame = true;
 				IsSelected = true;
@@ -174,12 +174,6 @@ namespace Line
 					Constants.C.selectionDrawer.gameObject.SetActive(false);
 				}
 			}
-
-			OnMouseOverAddon();
-		}
-
-		protected virtual void OnMouseOverAddon()
-		{
 		}
 
 		private void SetSpriteColor()

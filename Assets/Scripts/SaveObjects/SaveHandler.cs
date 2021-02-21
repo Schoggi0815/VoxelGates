@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -25,6 +26,8 @@ namespace SaveObjects
 		private void Start()
 		{
 			Constants.C.saveHandler = this;
+			
+//			print(Directory.GetCurrentDirectory());
 		}
 
 		private void Update()
