@@ -120,18 +120,6 @@ namespace SaveObjects
 			Constants.C.saveMenuResponseText.text = message;
 		}
 
-		private void Update()
-		{
-			if (Input.GetKeyDown(KeyCode.L))
-			{
-				DeleteAll();
-				
-				_activeGameSave = JsonConvert.DeserializeObject<ActiveGameSave>(_json, _settings);
-
-				_activeGameSave?.Create();
-			}
-		}
-
 		private void DeleteAll()
 		{
 			var count = lines.Count;

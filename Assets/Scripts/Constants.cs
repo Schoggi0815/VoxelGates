@@ -2,6 +2,7 @@
 using System.Linq;
 using Gates;
 using Line;
+using NUnit.Framework;
 using SaveObjects;
 using Ui;
 using UnityEngine;
@@ -80,11 +81,14 @@ public class Constants : MonoBehaviour
 	{
 		if (_gatesToUpdate.Count > 0)
 		{
-			var first = _gatesToUpdate.First();
-
-			_gatesToUpdate.RemoveAt(0);
+			List<Gate> gates = new List<Gate>(_gatesToUpdate);
 			
-			first.HandleChange();
+			_gatesToUpdate.Clear();
+
+			foreach (var gate in gates)
+			{
+				gate.HandleChange();
+			}
 		}
 	}
 
