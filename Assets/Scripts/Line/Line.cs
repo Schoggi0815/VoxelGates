@@ -1,6 +1,7 @@
 using System;
 using SaveObjects;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Line
 {
@@ -113,7 +114,10 @@ namespace Line
 
         private void OnMouseDown()
         {
-            Delete();
+            if (!EventSystem.current.IsPointerOverGameObject())
+            {
+                Delete();
+            }
         }
 
         private void HandleLineChange()

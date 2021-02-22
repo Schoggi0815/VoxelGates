@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SaveObjects;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Line
 {
@@ -80,7 +81,7 @@ namespace Line
 
 				line.lineDirection = lineDirection;
 
-				if (Input.GetMouseButtonDown(0) && !_isFirstFrame)
+				if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && !_isFirstFrame)
 				{
 					IsSelected = false;
 					var instantiate = Instantiate(Constants.C.lineCornerPrefab, Constants.C.lineCornerParent, true);
@@ -94,7 +95,7 @@ namespace Line
 					lineDrawer.lines.Add(Line.Create(GridPosition, GridPosition, IsActive, lineDrawer, lineDrawer, LineDirection.Horizontal));
 				}
 
-				if (Input.GetMouseButtonDown(1) && !_isFirstFrame)
+				if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject() && !_isFirstFrame)
 				{
 					IsSelected = false;
 					line.Delete(false);
@@ -143,7 +144,7 @@ namespace Line
 		{
 			base.OnMouseOver();
 			
-			if (lineDrawerMode != LineDrawerMode.Input && Input.GetMouseButtonDown(0) && !Constants.C.lineDrawers.Any(x => x.IsSelected))
+			if (lineDrawerMode != LineDrawerMode.Input && Input.GetMouseButtonDown(0) && !Constants.C.lineDrawers.Any(x => x.IsSelected) && !EventSystem.current.IsPointerOverGameObject())
 			{
 				_isFirstFrame = true;
 				IsSelected = true;
@@ -153,7 +154,7 @@ namespace Line
 				lines.Add(Line.Create(GridPosition, GridPosition, IsActive, this, this, LineDirection.Horizontal));
 			}
 
-			if (Input.GetMouseButtonDown(0) && lineDrawerMode == LineDrawerMode.Input && !IsSelected && Constants.C.lineDrawers.Any(x => x.IsSelected))
+			if (Input.GetMouseButtonDown(0) && lineDrawerMode == LineDrawerMode.Input && !IsSelected && Constants.C.lineDrawers.Any(x => x.IsSelected) && !EventSystem.current.IsPointerOverGameObject())
 			{
 				var first = Constants.C.lineDrawers.First(x => x.IsSelected);
 
@@ -228,7 +229,7 @@ namespace Line
 				parentLine.Delete(false);
 			}
 
-			int count = lines.Count;
+			var count = lines.Count;
 			
 			for (var i = 0; i < count; i++)
 			{

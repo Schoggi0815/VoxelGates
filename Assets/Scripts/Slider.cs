@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Slider : MonoBehaviour
 {
@@ -13,14 +14,14 @@ public class Slider : MonoBehaviour
 	{
 		if (!_mouseIsOn) return;
 
-		if (Input.GetMouseButtonDown(2))
+		if (Input.GetMouseButtonDown(2) && !EventSystem.current.IsPointerOverGameObject())
 		{
 			_startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			_startMousePos.z = 0.0f;
 			_mouseWasOn = true;
 		}
 
-		if (Input.GetMouseButton(2) && _mouseWasOn)
+		if (Input.GetMouseButton(2) && _mouseWasOn && !EventSystem.current.IsPointerOverGameObject())
 		{
 			var nowMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			nowMousePos.z = 0.0f;

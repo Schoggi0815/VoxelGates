@@ -1,0 +1,144 @@
+{
+  "$id": "1",
+  "$type": "SaveObjects.ActiveGameSave, Assembly-CSharp",
+  "GridObjectSaves": {
+    "$id": "2",
+    "$type": "System.Collections.Generic.List`1[[SaveObjects.GridObjectSave, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$id": "3",
+        "$type": "SaveObjects.KnobSave, Assembly-CSharp",
+        "id": 1,
+        "lineDrawerMode": 1,
+        "isActive": false,
+        "gridPosition": {
+          "$id": "4",
+          "$type": "GridPosition, Assembly-CSharp",
+          "X": -34,
+          "Y": -3
+        }
+      },
+      {
+        "$id": "5",
+        "$type": "SaveObjects.LineDrawerSave, Assembly-CSharp",
+        "lineDrawerMode": 2,
+        "isActive": false,
+        "gridPosition": {
+          "$id": "6",
+          "$type": "GridPosition, Assembly-CSharp",
+          "X": -15,
+          "Y": -3
+        }
+      },
+      {
+        "$id": "7",
+        "$type": "SaveObjects.LineDrawerSave, Assembly-CSharp",
+        "lineDrawerMode": 2,
+        "isActive": false,
+        "gridPosition": {
+          "$id": "8",
+          "$type": "GridPosition, Assembly-CSharp",
+          "X": -15,
+          "Y": 12
+        }
+      },
+      {
+        "$id": "9",
+        "$type": "SaveObjects.LineDrawerSave, Assembly-CSharp",
+        "lineDrawerMode": 2,
+        "isActive": false,
+        "gridPosition": {
+          "$id": "10",
+          "$type": "GridPosition, Assembly-CSharp",
+          "X": 22,
+          "Y": 12
+        }
+      },
+      {
+        "$id": "11",
+        "$type": "SaveObjects.LineDrawerSave, Assembly-CSharp",
+        "lineDrawerMode": 2,
+        "isActive": false,
+        "gridPosition": {
+          "$id": "12",
+          "$type": "GridPosition, Assembly-CSharp",
+          "X": 22,
+          "Y": -15
+        }
+      },
+      {
+        "$id": "13",
+        "$type": "SaveObjects.LineDrawerSave, Assembly-CSharp",
+        "lineDrawerMode": 2,
+        "isActive": false,
+        "gridPosition": {
+          "$id": "14",
+          "$type": "GridPosition, Assembly-CSharp",
+          "X": -16,
+          "Y": -15
+        }
+      }
+    ]
+  },
+  "lineSaves": {
+    "$id": "15",
+    "$type": "System.Collections.Generic.List`1[[SaveObjects.LineSave, Assembly-CSharp]], mscorlib",
+    "$values": [
+      {
+        "$id": "16",
+        "$type": "SaveObjects.LineSave, Assembly-CSharp",
+        "lineDirection": 0,
+        "parent": {
+          "$ref": "3"
+        },
+        "child": {
+          "$ref": "5"
+        }
+      },
+      {
+        "$id": "17",
+        "$type": "SaveObjects.LineSave, Assembly-CSharp",
+        "lineDirection": 1,
+        "parent": {
+          "$ref": "5"
+        },
+        "child": {
+          "$ref": "7"
+        }
+      },
+      {
+        "$id": "18",
+        "$type": "SaveObjects.LineSave, Assembly-CSharp",
+        "lineDirection": 0,
+        "parent": {
+          "$ref": "7"
+        },
+        "child": {
+          "$ref": "9"
+        }
+      },
+      {
+        "$id": "19",
+        "$type": "SaveObjects.LineSave, Assembly-CSharp",
+        "lineDirection": 1,
+        "parent": {
+          "$ref": "9"
+        },
+        "child": {
+          "$ref": "11"
+        }
+      },
+      {
+        "$id": "20",
+        "$type": "SaveObjects.LineSave, Assembly-CSharp",
+        "lineDirection": 0,
+        "parent": {
+          "$ref": "11"
+        },
+        "child": {
+          "$ref": "13"
+        }
+      }
+    ]
+  }
+}

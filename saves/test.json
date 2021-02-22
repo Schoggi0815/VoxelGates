@@ -1,0 +1,14 @@
+{
+  "$id": "1",
+  "$type": "SaveObjects.ActiveGameSave, Assembly-CSharp",
+  "GridObjectSaves": {
+    "$id": "2",
+    "$type": "System.Collections.Generic.List`1[[SaveObjects.GridObjectSave, Assembly-CSharp]], mscorlib",
+    "$values": []
+  },
+  "lineSaves": {
+    "$id": "3",
+    "$type": "System.Collections.Generic.List`1[[SaveObjects.LineSave, Assembly-CSharp]], mscorlib",
+    "$values": []
+  }
+}

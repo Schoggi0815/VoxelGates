@@ -3,13 +3,25 @@ using System.Linq;
 using Gates;
 using Line;
 using SaveObjects;
+using Ui;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Constants : MonoBehaviour
 {
 	public static Constants C;
 
 	public SaveHandler saveHandler;
+
+	public Text debugText;
+	public Text saveMenuResponseText;
+
+	public OverwritePopupUi overwritePopupUi;
+
+	public Color saveMenuErrorColor;
+	public Color saveMenuSuccessColor;
+	
+	public InputField saveNameText;
 
 	public List<LineDrawer> lineDrawers = new List<LineDrawer>();
 	

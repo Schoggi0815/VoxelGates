@@ -22,11 +22,5 @@ namespace Gates
 		{
 			outputKnobs[0].IsActive = inputKnobs.TrueForAll(x => x.IsActive);
 		}
-
-		protected override void Update()
-		{
-			base.Update();
-			//print($"{GridPosition.X}, {GridPosition.Y}");
-		}
 	}
 }

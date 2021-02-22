@@ -2776,7 +2776,7 @@ public class LeanTween : MonoBehaviour {
             return;
             }
             #else
-            if(goListeners[ point ] == caller && System.Object.Equals( eventListeners[ point ], callback)){  
+            if(goListeners[ point ] == caller && object.Equals( eventListeners[ point ], callback)){  
                 // Debug.Log("This event is already being listened for.");
                 return;
             }
@@ -2814,7 +2814,7 @@ public class LeanTween : MonoBehaviour {
             #if UNITY_FLASH
             if(goListeners[ point ] == caller && System.Object.ReferenceEquals( eventListeners[ point ], callback) ){
             #else
-            if(goListeners[ point ] == caller && System.Object.Equals( eventListeners[ point ], callback) ){
+            if(goListeners[ point ] == caller && object.Equals( eventListeners[ point ], callback) ){
             #endif
                 eventListeners[ point ] = null;
                 goListeners[ point ] = null;
@@ -3616,7 +3616,7 @@ public class LTSpline {
 */
 
 [Serializable]
-public class LTRect : System.Object{
+public class LTRect : object{
     /**
     * Pass this value to the GUI Methods
     * 
@@ -3805,7 +3805,7 @@ public class LTRect : System.Object{
         return this;
     }
 
-    public LTRect setLabel( String str ){
+    public LTRect setLabel( string str ){
         labelStr = str;
         return this;
     }
