@@ -18,7 +18,7 @@ namespace Gates
 			return new AndGateSave(GridPosition, inputKnobTop.lineDrawerSave, inputKnobBottom.lineDrawerSave, outputKnob.lineDrawerSave);
 		}
 
-		public override void HandleChange()
+		protected override void HandleChange()
 		{
 			outputKnobs[0].IsActive = inputKnobs.TrueForAll(x => x.IsActive);
 		}

@@ -18,7 +18,22 @@ namespace Gates
 
 		public Text text;
 
-		public virtual void HandleChange() { }
+		public int changeCounter;
+
+		public void TryHandleChange()
+		{
+			if (changeCounter < inputKnobs.Count)
+			{
+				changeCounter++;
+				HandleChange();
+			}
+			else
+			{
+				Constants.C.AddGateToQueue(this);
+			}
+		}
+
+		protected virtual void HandleChange() { }
 
 		private int _height;
 		public Color color;

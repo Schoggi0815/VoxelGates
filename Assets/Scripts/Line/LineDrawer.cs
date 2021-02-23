@@ -81,18 +81,18 @@ namespace Line
 
 				line.lineDirection = lineDirection;
 
-				if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && !_isFirstFrame)
+				if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && !_isFirstFrame && !Physics2D.OverlapBox(GridToWorldPos(gridPosition), new Vector2(.3f, .3f), 0, 0))
 				{
 					IsSelected = false;
 					var instantiate = Instantiate(Constants.C.lineCornerPrefab, Constants.C.lineCornerParent, true);
 					instantiate.GetComponent<GridObject>().GridPosition = gridPosition;
 					var lineDrawer = instantiate.GetComponent<LineDrawer>();
-					lineDrawer.IsActive = IsActive;
 					lineDrawer.parentLine = line;
 					line.SetParents(this, lineDrawer);
 					lineDrawer.IsSelected = true;
 					Constants.C.selectionDrawer.GetComponent<SpriteRenderer>().color = lineDrawer.IsActive ? Constants.C.lineActiveColor : Constants.C.lineInactiveColor;
 					lineDrawer.lines.Add(Line.Create(GridPosition, GridPosition, IsActive, lineDrawer, lineDrawer, LineDirection.Horizontal));
+					lineDrawer.IsActive = IsActive;
 				}
 
 				if (Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject() && !_isFirstFrame)
@@ -169,10 +169,10 @@ namespace Line
 						parentLine.Delete();
 					}
 					
-					IsActive = first.IsActive;
 					parentLine = line;
 					line.SetParents(first, this);
 					Constants.C.selectionDrawer.gameObject.SetActive(false);
+					IsActive = first.IsActive;
 				}
 			}
 		}

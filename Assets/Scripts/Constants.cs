@@ -21,18 +21,18 @@ public class Constants : MonoBehaviour
 
 	public Color saveMenuErrorColor;
 	public Color saveMenuSuccessColor;
-	
+
 	public InputField saveNameText;
 
 	public List<LineDrawer> lineDrawers = new List<LineDrawer>();
-	
+
 	public List<Knob> outputKnobs = new List<Knob>();
 	public List<Knob> inputKnobs = new List<Knob>();
 
 	public Sprite knobSpriteOn;
 	public Sprite knobSpriteOff;
 	public Sprite knobSpriteSelected;
-	
+
 	public Sprite smallKnobSpriteOn;
 	public Sprite smallKnobSpriteOff;
 	public Sprite smallKnobSpriteSelected;
@@ -44,7 +44,7 @@ public class Constants : MonoBehaviour
 
 	public GameObject andGatePrefab;
 	public GameObject notGatePrefab;
-	
+
 	public Vector2 knobSpawnOffset;
 	public Vector2 gateSpawnOffset;
 
@@ -58,7 +58,7 @@ public class Constants : MonoBehaviour
 	public Color lineHoverColor;
 
 	public GridObject selectionDrawer;
-	
+
 	private readonly List<Gate> _gatesToUpdate = new List<Gate>();
 
 	private void Awake()
@@ -79,15 +79,20 @@ public class Constants : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		foreach (var saveHandlerGridObject in saveHandler.gridObjects.OfType<Gate>())
+		{
+			saveHandlerGridObject.changeCounter = 0;
+		}
+		
 		if (_gatesToUpdate.Count > 0)
 		{
 			List<Gate> gates = new List<Gate>(_gatesToUpdate);
-			
+
 			_gatesToUpdate.Clear();
 
 			foreach (var gate in gates)
 			{
-				gate.HandleChange();
+				gate.TryHandleChange();
 			}
 		}
 	}
@@ -103,7 +108,7 @@ public class Constants : MonoBehaviour
 	public bool TryRemoveFromQueue(Gate gate)
 	{
 		if (!_gatesToUpdate.Contains(gate)) return false;
-		
+
 		_gatesToUpdate.Remove(gate);
 		return true;
 	}
@@ -115,7 +120,7 @@ public class Constants : MonoBehaviour
 			outputKnobs[i].ID = i + 1;
 			outputKnobs[i].OnUpdateID();
 		}
-		
+
 		for (var i = 0; i < inputKnobs.Count; i++)
 		{
 			inputKnobs[i].ID = i + 1;

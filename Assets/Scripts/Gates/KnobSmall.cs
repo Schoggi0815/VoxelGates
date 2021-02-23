@@ -36,7 +36,7 @@ namespace Gates
 		{
 			if (lineDrawerMode == LineDrawerMode.Input && gate != null)
 			{
-				Constants.C.AddGateToQueue(gate);
+				gate.TryHandleChange();
 			}
 		}
 	}

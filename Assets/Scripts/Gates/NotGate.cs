@@ -15,7 +15,7 @@ namespace Gates
 			return new NotGateSave(GridPosition, inputKnob.lineDrawerSave, outputKnob.lineDrawerSave);
 		}
 
-		public override void HandleChange()
+		protected override void HandleChange()
 		{
 			outputKnobs[0].IsActive = !inputKnobs[0].IsActive;
 		}
